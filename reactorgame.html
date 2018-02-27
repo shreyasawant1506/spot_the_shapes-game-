@@ -1,0 +1,102 @@
+<html>
+<head>
+<title>game</title>
+<style>
+
+#shapes{
+width:200px;
+position:relative;
+height:200px;
+display:none;
+}
+
+</style>
+
+
+
+
+
+
+
+</head>
+<body>
+<p><h2>Click on the shapes as quickly as you can!</h2></p>
+
+<p> <strong>Time taken:<span id="timetaken"></strong></span></p><br>
+<p> <span id="records"></span></p>
+
+<div id="shapes"></div>
+
+<script type"text/javascript">
+ var min=1;
+appearAfterdelay();
+
+var start=new Date().getTime();
+function makeShapeAppear(){
+var top=Math.random()*500;
+var left=Math.random()*400;
+var width=Math.random()*300;
+
+document.getElementById("shapes").style.top=top+"px";
+document.getElementById("shapes").style.left=left+"px";
+document.getElementById("shapes").style.width=width+"px";
+document.getElementById("shapes").style.backgroundColor=getRandomColor();
+
+if(Math.random() >0.5){
+document.getElementById("shapes").style.borderRadius="50%";
+}else{
+document.getElementById("shapes").style.borderRadius="0";
+}
+
+document.getElementById("shapes").style.display="block";
+start=new Date().getTime();
+}
+
+
+document.getElementById("shapes").onclick=function(){
+  
+    var end=new Date().getTime();
+	document.getElementById("shapes").style.display="none";
+	var time=(end-start)/1000;
+	//alert(time);
+	if(min>time){
+	min=time;
+	}
+	document.getElementById("timetaken").innerHTML=time+"s"+ "<br>"+
+	"<div style='color:red'>Min time:"+min+"</div>";
+	if(time<0.9){
+	
+	document.getElementById("records").innerHTML="That was fast";
+	
+	}else{
+	if(time<1.5){
+	document.getElementById("records").innerHTML="Good Going ...You can be quicker";
+	
+	}
+	
+	}
+	appearAfterdelay();
+	
+}
+
+
+function appearAfterdelay(){
+
+setTimeout(makeShapeAppear, Math.random()*2);
+}
+function getRandomColor() {
+  var letters = '0123456789ABCDEF';
+  var color = '#';
+  for (var i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
+}
+
+
+
+
+
+</script>
+</body>
+</html>
